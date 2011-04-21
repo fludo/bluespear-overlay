@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec /opt/dex2jar/dex2jar.sh ${1}
