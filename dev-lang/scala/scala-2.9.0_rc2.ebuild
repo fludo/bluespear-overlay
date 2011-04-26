@@ -17,7 +17,7 @@ SRC_URI="!binary? ( http://www.scala-lang.org/downloads/distrib/files/scala-2.9.
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="binary emacs"
+IUSE="binary emacs sbaz"
 # one fails with 1.7, two with 1.4 (blackdown)
 RESTRICT="test"
 
@@ -112,6 +112,10 @@ src_install() {
                 doins src/*-src.jar
         fi
 
+        if use sbaz; then
+                insinto "${SCALADIR}/meta"
+                doins "meta/*"
+        fi
         java-pkg_dojar lib/*.jar
 
         java-pkg_dojar misc/sbaz/*.jar
@@ -136,6 +140,8 @@ src_install() {
         scala_launcher scalac scala.tools.nsc.Main
         scala_launcher scaladoc scala.tools.nsc.ScalaDoc
         scala_launcher scalap scala.tools.scalap.Main
-        scala_launcher sbaz sbaz.clui.CommandLine
+        if use sbaz; then
+                scala_launcher sbaz sbaz.clui.CommandLine
+        fi
 }
 
