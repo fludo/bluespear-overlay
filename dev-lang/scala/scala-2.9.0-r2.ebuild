@@ -1,4 +1,3 @@
-# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -34,7 +33,8 @@ PDEPEND="emacs? ( app-emacs/scala-mode )"
 if ! use binary; then
         S="${WORKDIR}/${MY_P}"
 else
-        S="${WORKDIR}/${BIN_P}"
+        #S="${WORKDIR}/${BIN_P}"
+         S="${WORKDIR}/scala-2.9.0.RC2"
 fi
 
 pkg_setup() {
@@ -94,7 +94,7 @@ src_test() {
 
 scala_launcher() {
         #local SCALADIR="/usr/share/${PN}"
-	local SCALADIR="/opt/${PN}"
+        local SCALADIR="/opt/${PN}"
         local bcp="${SCALADIR}/lib/scala-library.jar"
         java-pkg_dolauncher "${1}" --main "${2}" \
                 --java_args "-Xmx256M -Xms32M -Dscala.home=${SCALADIR} -Denv.emacs=${EMACS}"
@@ -140,3 +140,4 @@ src_install() {
         scala_launcher scalap scala.tools.scalap.Main
         scala_launcher sbaz sbaz.clui.CommandLine
 }
+
